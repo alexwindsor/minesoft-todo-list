@@ -2,7 +2,7 @@
 
 ## 1. How long did you spend on the coding test?
 
-About 8 hours 
+About 8 hours - it was a good exercise for me to try out different ways of using Vue3 and Laravel together.
 
 ## 2. Which parts were the most challenging?
 
