@@ -29,7 +29,7 @@
         </div>
 
         <button 
-            v-if="todos.todo.list_id === list.id"
+            v-if="todos.todo.list_id === list.id && list.user.id === props.user.id"
             class="border-2 border-black rounded p-1 text-white m-2" 
             :class="{'bg-green-500': todos.edit_list_id === list.id,
                     'bg-blue-500': todos.edit_list_id !== list.id

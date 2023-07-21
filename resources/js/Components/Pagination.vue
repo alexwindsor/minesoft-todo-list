@@ -15,7 +15,7 @@
     <div v-for="link in links" class="inline-block">
         <Link 
             v-if="link.url !== null"
-            :href="link.url.replace('/getTodoLists', base_url) + '&mine_or_all=' + filters.mine_or_all"
+            :href="link.url.replace('getTodoLists', '') + '&mine_or_all=' + filters.mine_or_all"
             class="inline-block border border-black p-2 m-2"
             :class="{
                 'bg-black text-white': link.active,

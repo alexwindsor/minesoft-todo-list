@@ -9,8 +9,8 @@
     })
 
     const form = reactive({
-        email: null,
-        password: null
+        email: 'test@example.com',
+        password: 'password'
     });
 
     function submit() {
