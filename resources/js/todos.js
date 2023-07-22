@@ -22,20 +22,20 @@ export let todos = reactive({
     edit_todo_id: null,
     edit_todo_what_todo: '',
 
-    getToDoLists() {
+    async getToDoLists() {
 
-        axios.post(base_url + 'getTodoLists', this.filters).then(todoLists => {
+        await axios.post(base_url + 'getTodoLists', this.filters).then(todoLists => {
             this.todo.lists = todoLists.data
         })
     },
 
-    getToDos(todo_list_id) {
+    async getToDos(todo_list_id) {
 
         this.todo.todos = []
         // toggle
         if (this.todo.list_id !== todo_list_id) {
 
-            axios.post(base_url + 'getTodos', {
+            await axios.post(base_url + 'getTodos', {
                 todo_list_id: todo_list_id
             } ).then(todos => {
                 this.todo.todos = todos.data
@@ -50,24 +50,24 @@ export let todos = reactive({
 
     },
 
-    changeTodoCompleted(n, todo_id, todo_completed) {
+    async changeTodoCompleted(n, todo_id, todo_completed) {
 
         todo_completed = todo_completed === 1 ? 0 : 1
 
         this.todo.todos[n].completed = todo_completed
 
-        axios.put(base_url + 'changeTodoCompleted', {
+        await axios.put(base_url + 'changeTodoCompleted', {
             todo_id: todo_id,
             completed: todo_completed
         })
 
     },
 
-    addList() {
+    async addList() {
 
         if (this.add_list_name.length < 1 || this.add_list_name.length > 256) return false
 
-        axios.post(base_url + 'addList', {
+        await axios.post(base_url + 'addList', {
             name: this.add_list_name
         })
 
@@ -77,7 +77,7 @@ export let todos = reactive({
 
     },
 
-    editList(list_id, list_name) {
+    async editList(list_id, list_name) {
 
         // toggle
         this.edit_list_id = this.edit_list_id === list_id ? null : list_id
@@ -89,7 +89,7 @@ export let todos = reactive({
         // save
         else if (this.edit_list_id !== list_id && this.edit_list_name.length > 0 && this.edit_list_name.length < 256) {
 
-            axios.put(base_url + 'editList', {
+            await axios.put(base_url + 'editList', {
                 list_id: list_id,
                 list_name: this.edit_list_name
             })
@@ -101,11 +101,11 @@ export let todos = reactive({
 
     },
 
-    deleteList(list_id) {
+    async deleteList(list_id) {
 
         if (confirm('Are you sure you want to delete this todo list?') === false) return false
 
-        axios.delete(base_url + 'deleteList/' + list_id)
+        await axios.delete(base_url + 'deleteList/' + list_id)
 
         this.todo.list_id = null
 
@@ -113,11 +113,11 @@ export let todos = reactive({
 
     },
 
-    addTodo(list_id) {
+    async addTodo(list_id) {
 
         if (this.add_todo_what_todo.length < 1 || this.add_todo_what_todo.length > 96) return false
 
-        axios.post(base_url + 'addTodo', {
+        await axios.post(base_url + 'addTodo', {
             list_id: list_id,
             what_todo: this.add_todo_what_todo
         })
@@ -130,7 +130,7 @@ export let todos = reactive({
 
     },
 
-    editTodo(n, todo_id) {
+    async editTodo(n, todo_id) {
 
         // toggle
         this.edit_todo_id = this.edit_todo_id === todo_id ? null : todo_id
@@ -144,7 +144,7 @@ export let todos = reactive({
             this.todo.todos[n].what_todo = this.edit_todo_what_todo
             this.edit_todo_what_todo = ''
 
-            axios.put(base_url + 'editTodo', {
+            await axios.put(base_url + 'editTodo', {
                 todo_id: todo_id,
                 what_todo: this.todo.todos[n].what_todo
             })
@@ -155,11 +155,11 @@ export let todos = reactive({
 
     },
 
-    deleteTodo(n, todo_id) {
+    async deleteTodo(n, todo_id) {
 
         if (confirm('Are you sure you want to delete this todo?') === false) return false
 
-        axios.delete(base_url + 'deleteTodo/' + todo_id)
+        await axios.delete(base_url + 'deleteTodo/' + todo_id)
 
         this.todo.todos.splice(n, 1)
 
