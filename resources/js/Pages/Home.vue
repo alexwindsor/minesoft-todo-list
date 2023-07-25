@@ -28,7 +28,10 @@
     <Head title="HOME | MineSoft To Do Lists" />
 
     <Layout page="" :user="user">
-
+<!-- <pre>
+    {{ todos.todo }}
+</pre> -->
+    
         Hello <span v-if="user" class="font-bold">{{ user.name }}</span>.
 
         Show <label>mine <input type="radio" name="mine_or_all" value="mine" v-model="todos.filters.mine_or_all" @change="todos.getToDoLists"></label> or <label>all <input type="radio" name="mine_or_all" value="all" v-model="todos.filters.mine_or_all" @change="todos.getToDoLists"></label> to do lists?

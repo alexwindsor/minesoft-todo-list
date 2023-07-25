@@ -26,6 +26,12 @@ export let todos = reactive({
 
         await axios.post(base_url + 'getTodoLists', this.filters).then(todoLists => {
             this.todo.lists = todoLists.data
+            // check that we are not on a page higher than the last page
+            if (this.todo.lists.current_page > this.todo.lists.last_page) {
+                // if we are, then change the page to the last page and rerun this function
+                this.filters.page = this.todo.lists.last_page
+                this.getToDoLists()
+            }
         })
     },
 
